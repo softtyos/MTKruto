@@ -100,7 +100,7 @@ export interface RichTextComponentFixed {
 export interface RichTextComponentLink {
   type: "link";
   url: string;
-  linkPreviewId: string;
+  linkPreviewId?: string;
   /** The component's inner text. */
   text: RichTextComponent;
 }
@@ -408,7 +408,7 @@ export function richTextComponentToTlObject(rtc: RichTextComponent): Api.RichTex
     case "fixed":
       return { _: "textFixed", text: richTextComponentToTlObject(rtc.text) };
     case "link":
-      return { _: "textUrl", url: rtc.url, webpage_id: BigInt(rtc.linkPreviewId), text: richTextComponentToTlObject(rtc.text) };
+      return { _: "textUrl", url: rtc.url, webpage_id: BigInt(rtc.linkPreviewId ?? "0"), text: richTextComponentToTlObject(rtc.text) };
     case "emailLink":
       return { _: "textEmail", email: rtc.email, text: richTextComponentToTlObject(rtc.text) };
     case "concatenate":
